@@ -8,7 +8,7 @@ We're all in the same CSE 110 boat: crunchy deadlines, surprise bugs, and still 
 
 ### Team logo
 
-CS Stress 14 — team brand
+<img src="branding/brand.png" alt="CS Stress 14 — team brand" width="360">
 
 |                            |                                                                     |
 | -------------------------- | ------------------------------------------------------------------- |
@@ -23,10 +23,6 @@ Accountability ✅ — open communication 📝 — respect 🤝 — integrity �
 
 ## 🗂️ Team members
 
-When you have a moment: swap GitHub `TBD` for your **GitHub Pages** site URL, and drop a tiny **About** line. No pressure — perfection not required~ 🔗
-
-📝 Example layout (click me)
-
 ### 💻 Roster
 
 - **Yu Wu** — Project lead / manager  
@@ -40,10 +36,10 @@ When you have a moment: swap GitHub `TBD` for your **GitHub Pages** site URL, an
   About: My name's Owen Atis. I'm a second year at UCSD majoring in Computer Science. In terms of experience I for the most part have participated in club-wide game development projects for the last 2 years. I hope in the future to pursue a career in Game Development or software engineering by the time I graduate. Outside of academics, my main interests have been in relation to video games, reading/watching indie projects, and am way to obsessed with the Transformers Franchise for my own health.
 - **Jacky Yu** — Designer / UI, frontend  
   GitHub: [andro-source.github.io/SP26-CSE110-Lab-01](https://andro-source.github.io/SP26-CSE110-Lab-01/)  
-  About: I enjoy weight lifting. Recently got into golf. From the Bay Area. Likes to play Valorant sometimes.
+  About: Hi, I'm Jacky and I am a 3rd year student at UC San Diego studying Computer Science. I have experience with frontend work, prompt engineering, and I like to vibe code whenever I do anything programming related. Outside of academics, I am interested in weight lifting (I compete in powerlift), watching sports, studying at cafes with friends, and sometimes play video games (fav game is val). 
 - **Adithya Gundlapalli** — Backend  
-  GitHub: [TBD](#)  
-  About: TBD
+  GitHub: [adithyagundlapalli.github.io](https://adithyagundlapalli.github.io/)  
+  About: Hey, I'm Adithya, a Math-CS student at UC San Diego. I'm really into building things, especially full-stack apps and AI projects that actually solve real problems. I've worked on a mix of backend systems and ML stuff, and I like thinking about how to turn ideas into something real and useful. Outside of tech, I'm big on fitness and sports, so I'm usually either coding, at the gym, or playing something competitive.
 - **Benjamin Scheerger** — QA & testing, backend  
   GitHub: [benscheerger.github.io/Lab1-CSE110](https://benscheerger.github.io/Lab1-CSE110/)  
   About: My name is Benjamin Scheerger. I'm a 4th year at UCSD majoring in Cognitive Science, and I'm taking this class as an elective for a Computer Science minor. Most of my programming experience is in ML focused roles, so I'm excited to expand my horizons through our project. Outside of academics, I enjoy skiing, hiking, camping, and surfing. I'm also a big fan of music festivals, especially EDM centered ones, and have rewatched the Office too many times to count.
