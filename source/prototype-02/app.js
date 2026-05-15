@@ -1,6 +1,6 @@
 /**
- * SE SitRep - Main Application Logic
- * Zero Dependencies | Vanilla JS ES6+
+ * Compatibility entry point.
+ * The application now lives in native ES modules under src/.
  */
 
 const GAPI_CLIENT_ID = '736502651505-7i3bu30t7b2djm1rq9v62ds6bsmsihrd.apps.googleusercontent.com';
