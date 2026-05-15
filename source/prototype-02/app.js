@@ -3,7 +3,7 @@
  * Zero Dependencies | Vanilla JS ES6+
  */
 
-const GAPI_CLIENT_ID = 'YOUR_ACTUAL_CLIENT_ID';
+const GAPI_CLIENT_ID = '736502651505-7i3bu30t7b2djm1rq9v62ds6bsmsihrd.apps.googleusercontent.com';
 let googleEvents = [];
 let gapiInited = false;
 
