@@ -3,6 +3,39 @@
  * Zero Dependencies | Vanilla JS ES6+
  */
 
+const GAPI_CLIENT_ID = 'CLIENT_ID';
+let googleEvents = [];
+
+function initGoogleCalendar() {
+    gapi.load('client:auth2', () => {
+        gapi.client.init({
+            clientId: GAPI_CLIENT_ID,
+            scope: 'https://www.googleapis.com/auth/calendar.readonly',
+            discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest']
+        }).then(() => {
+            const authInstance = gapi.auth2.getAuthInstance();
+            if (!authInstance.isSignedIn.get()) {
+                authInstance.signIn().then(fetchGoogleEvents);
+            } else {
+                fetchGoogleEvents();
+            }
+        });
+    });
+}
+
+function fetchGoogleEvents() {
+    gapi.client.calendar.events.list({
+        calendarId: 'primary',
+        timeMin: new Date('2026-05-12').toISOString(),
+        timeMax: new Date('2026-05-20').toISOString(),
+        singleEvents: true,
+        orderBy: 'startTime'
+    }).then(response => {
+        googleEvents = response.result.items;
+        if (window.location.hash === '#calendar') router.handleRoute();
+    });
+}
+
 // --- 1. State Management (Pub/Sub Store) ---
 class Store {
     constructor() {
