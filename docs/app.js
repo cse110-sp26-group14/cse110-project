@@ -3,6 +3,54 @@
  * The application now lives in native ES modules under src/.
  */
 
+// --- Google Calendar Sync ---
+const GAPI_CLIENT_ID = '736502651505-7i3bu30t7b2djm1rq9v62ds6bsmsihrd.apps.googleusercontent.com';
+let googleEvents = [];
+let gapiInited = false;
+
+function gapiInit() {
+    gapi.load('client', () => {
+        gapi.client.init({
+            discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest']
+        }).then(() => {
+            gapiInited = true;
+        });
+    });
+}
+
+function initGoogleCalendar() {
+    if (!gapiInited) {
+        alert('Calendar API not ready yet, try again in a moment.');
+        return;
+    }
+    const tokenClient = google.accounts.oauth2.initTokenClient({
+        client_id: GAPI_CLIENT_ID,
+        scope: 'https://www.googleapis.com/auth/calendar.readonly',
+        callback: (response) => {
+            if (response.error) { console.error('Auth error:', response); return; }
+            fetchGoogleEvents();
+        }
+    });
+    tokenClient.requestAccessToken();
+}
+
+function fetchGoogleEvents() {
+    gapi.client.calendar.events.list({
+        calendarId: 'primary',
+        timeMin: new Date('2026-05-12').toISOString(),
+        timeMax: new Date('2026-05-20').toISOString(),
+        singleEvents: true,
+        orderBy: 'startTime'
+    }).then(response => {
+        googleEvents = response.result.items;
+        if (window.location.hash === '#calendar') router.handleRoute();
+    }).catch(err => {
+        console.error('Calendar fetch error:', err);
+    });
+}
+
+window.addEventListener('load', gapiInit);
+
 // --- 1. State Management (Pub/Sub Store) ---
 class Store {
   constructor() {
@@ -383,10 +431,15 @@ class CalendarView extends BaseView {
                     </div>
                     <div style="margin-bottom: 2rem;">
                         <h4 style="font-size: 0.7rem; text-transform: uppercase; color: var(--text-light); margin-bottom: 0.75rem;">Meetings</h4>
-                        <div style="padding: 1rem; border: 1px solid var(--border); border-radius: var(--radius-md);">
-                            <div style="font-weight: 600; font-size: 0.875rem;">Sprint Standup</div>
-                            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">10:00 • online</div>
+                        <div id="gcal-meetings">
+                            <div style="padding: 1rem; border: 1px solid var(--border); border-radius: var(--radius-md);">
+                                <div style="font-weight: 600; font-size: 0.875rem;">Sprint Standup</div>
+                                <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">10:00 • online</div>
+                            </div>
                         </div>
+                        <button id="btn-connect-gcal" class="action-btn" style="width: 100%; margin-top: 0.75rem; justify-content: center;">
+                            Sync Google Calendar
+                        </button>
                     </div>
                     <div style="margin-bottom: 2rem;">
                         <h4 style="font-size: 0.7rem; text-transform: uppercase; color: var(--text-light); margin-bottom: 0.75rem;">Tasks Due</h4>
@@ -399,6 +452,26 @@ class CalendarView extends BaseView {
                 </div>
             </div>
         `;
+  }
+
+  mount(container) {
+    const connectBtn = container.querySelector('#btn-connect-gcal');
+    if (connectBtn) {
+      connectBtn.onclick = () => initGoogleCalendar();
+    }
+    if (googleEvents.length > 0) {
+      const meetingsList = container.querySelector('#gcal-meetings');
+      if (meetingsList) {
+        meetingsList.innerHTML = googleEvents.map(event => `
+          <div style="padding: 1rem; border: 1px solid var(--border); border-radius: var(--radius-md); margin-bottom: 0.5rem;">
+            <div style="font-weight: 600; font-size: 0.875rem;">${event.summary}</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">
+              ${new Date(event.start.dateTime || event.start.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+            </div>
+          </div>
+        `).join('');
+      }
+    }
   }
 }
 
